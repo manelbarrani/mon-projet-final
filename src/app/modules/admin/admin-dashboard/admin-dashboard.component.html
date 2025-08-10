@@ -1,0 +1,75 @@
+<div class="dashboard-container" role="main" aria-label="Tableau de bord administratif Beautify Bio">
+  <header class="dashboard-header fade-in">
+    <h1 class="dashboard-title">Tableau de bord administratif</h1>
+    <p class="dashboard-subtitle">Gérez avec soin vos produits cosmétiques bio et suivez les performances de votre boutique.</p>
+  </header>
+
+  <section class="dashboard-section fade-in delay-1" aria-label="Aperçu des indicateurs clés">
+    <h2 class="section-title">Aperçu des indicateurs clés</h2>
+    <div class="dashboard-grid" role="list">
+
+      <!-- Membres -->
+      <div class="dashboard-card members fade-in delay-2" role="listitem" tabindex="0" aria-label="Membres inscrits : 1280 utilisateurs actifs">
+        <div class="card-icon" aria-hidden="true">👥</div>
+        <div class="card-content">
+          <div class="card-header">Membres inscrits</div>
+          <div class="card-number">1 280</div>
+          <div class="card-sub">Utilisateurs actifs</div>
+        </div>
+      </div>
+
+      <!-- Statistiques -->
+      <div class="dashboard-card analytics fade-in delay-3" role="listitem" tabindex="0" aria-label="Performance : croissance mensuelle de 12 pour cent">
+        <div class="card-icon" aria-hidden="true">📊</div>
+        <div class="card-content">
+          <div class="card-header">Performance</div>
+          <div class="card-number">+12%</div>
+          <div class="card-sub">Croissance mensuelle</div>
+          <svg viewBox="0 0 100 50" aria-hidden="true" focusable="false" class="analytics-graph">
+            <polyline points="0,40 20,30 40,35 60,15 80,25 100,10" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Stock disponible -->
+      <div class="dashboard-card stock fade-in delay-4" role="listitem" tabindex="0" aria-label="Stock disponible : 342 produits">
+        <div class="card-icon" aria-hidden="true">📦</div>
+        <div class="card-content">
+          <div class="card-header">Stock</div>
+          <div class="card-number">342</div>
+          <div class="card-sub">Produits disponibles</div>
+        </div>
+      </div>
+
+      <!-- Produits épuisés -->
+      <div class="dashboard-card out-of-stock fade-in delay-5" role="listitem" tabindex="0" aria-label="Ruptures de stock : 18 articles indisponibles">
+        <div class="card-icon" aria-hidden="true">🚫</div>
+        <div class="card-content">
+          <div class="card-header">Ruptures</div>
+          <div class="card-number">18</div>
+          <div class="card-sub">Articles indisponibles</div>
+        </div>
+      </div>
+
+      <!-- Commandes externes -->
+      <div class="dashboard-card purchases fade-in delay-6" role="listitem" tabindex="0" aria-label="Commandes monEXT : 294 commandes traitées">
+        <div class="card-icon" aria-hidden="true">🛒</div>
+        <div class="card-content">
+          <div class="card-header">Commandes monEXT</div>
+          <div class="card-number">294</div>
+          <div class="card-sub">Commandes traitées</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="dashboard-section fade-in delay-7">
+    <div class="button-container">
+      <button mat-raised-button color="accent" routerLink="/produits" aria-label="Accéder à la gestion des produits">
+        <mat-icon>inventory_2</mat-icon>
+        Accéder à la gestion des produits
+      </button>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,83 @@
+<div class="edit-product-container">
+  <h2 class="form-title">✏️ Modifier le produit</h2>
+
+  <form [formGroup]="produitForm" (ngSubmit)="onSubmit()" class="form-grid" novalidate>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Nom du produit</mat-label>
+      <input matInput formControlName="name" required />
+      <mat-error *ngIf="produitForm.get('name')?.invalid && produitForm.get('name')?.touched">
+        Le nom est requis.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Catégorie</mat-label>
+      <input matInput formControlName="category" required />
+      <mat-error *ngIf="produitForm.get('category')?.invalid && produitForm.get('category')?.touched">
+        La catégorie est requise.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Prix (€)</mat-label>
+      <input matInput type="number" formControlName="price" required />
+      <mat-error *ngIf="produitForm.get('price')?.invalid && produitForm.get('price')?.touched">
+        Prix requis et doit être positif.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Quantité en stock</mat-label>
+      <input matInput type="number" formControlName="stockQuantity" required />
+      <mat-error *ngIf="produitForm.get('stockQuantity')?.invalid && produitForm.get('stockQuantity')?.touched">
+        Quantité requise et doit être ≥ 0.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-field">
+  <mat-label>Note (sur 5)</mat-label>
+  <input
+    matInput
+    type="number"
+    formControlName="rating"
+    min="0"
+    max="5"
+    step="0.1"
+    required
+    placeholder="Ex: 4.2"
+  />
+  <mat-error *ngIf="produitForm.get('rating')?.invalid && produitForm.get('rating')?.touched">
+    La note est requise (entre 0 et 5).
+  </mat-error>
+</mat-form-field>
+
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Image (URL)</mat-label>
+      <input matInput formControlName="imageUrl" required placeholder="https://..." />
+      <mat-error *ngIf="produitForm.get('imageUrl')?.invalid && produitForm.get('imageUrl')?.touched">
+        L'URL de l'image est requise.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="3" formControlName="description" required></textarea>
+      <mat-error *ngIf="produitForm.get('description')?.invalid && produitForm.get('description')?.touched">
+        La description est requise.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="isNew">✨ Nouveau produit</mat-checkbox>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="submit-button"
+      [disabled]="produitForm.invalid"
+    >
+      💾 Mettre à jour
+    </button>
+  </form>
+</div>

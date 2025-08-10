@@ -1,0 +1,59 @@
+<!-- Bannière principale pleine largeur -->
+<section class="hero-section mat-elevation-z4" role="banner" aria-label="Présentation Beautify Bio">
+  <div class="container">
+    <div class="hero-text">
+      <h1>🌿 Beautify Bio</h1>
+      <p>Beautify Bio est une boutique de cosmétiques naturels et écoresponsables. Notre mission est de valoriser la beauté sans compromis sur la nature.</p>
+     <button class="btn-connect animated" type="button" routerLink="/login" aria-label="Se connecter à Beautify Bio">
+  Se connecter
+</button>
+
+    </div>
+    <div class="hero-image" aria-hidden="true">
+      <img src="assets/img/banner/beauty-banner.jpg" alt="Image de présentation Beautify Bio" />
+    </div>
+  </div>
+</section>
+
+<!-- Catégories -->
+<section class="categories-section container" aria-label="Catégories de produits">
+  <h2>Nos catégories</h2>
+  <div class="categories-list" role="list">
+    <div *ngFor="let cat of categories" class="category-card mat-elevation-z2" role="listitem" tabindex="0" [attr.aria-label]="cat.name">
+      <img [src]="cat.icon" [alt]="cat.name + ' icon'" />
+      <p>{{ cat.name }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Produits en vedette -->
+<section class="featured-products-section container" aria-label="Produits en vedette">
+  <h2>Produits en vedette</h2>
+  <div class="products-list" role="list">
+    <mat-card *ngFor="let product of products" class="product-card mat-elevation-z3" role="listitem" tabindex="0">
+      <div [attr.aria-label]="product.name">
+        <img mat-card-image [src]="product.imageUrl" [alt]="product.name" />
+        <mat-card-content>
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.description }}</p>
+          <p class="price">{{ product.price | currency:'EUR' }}</p>
+          <p class="rating" [attr.aria-label]="'Note du produit : ' + product.rating + ' étoiles'">⭐ {{ product.rating }}</p>
+        </mat-card-content>
+      </div>
+    </mat-card>
+  </div>
+</section>
+
+<!-- Témoignages -->
+<section class="testimonials-section mat-elevation-z2 container" aria-label="Avis clients">
+  <h2>Ce que nos clients disent</h2>
+  <div class="testimonials-container" role="list">
+    <article class="testimonial" *ngFor="let t of testimonials" role="listitem" tabindex="0">
+      <img class="testimonial-photo" [src]="t.photoUrl" alt="Photo de {{ t.author }}" />
+      <blockquote>
+        <p>"{{ t.text }}"</p>
+        <footer>— {{ t.author }}</footer>
+      </blockquote>
+    </article>
+  </div>
+</section>

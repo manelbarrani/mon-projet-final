@@ -1,0 +1,260 @@
+:root {
+  --primary-color: #7db87f;        /* Vert doux naturel */
+  --background-color: #f9f6ee;     /* Beige clair chaud */
+  --card-color: #ffffffcc;         /* Carte blanche semi-transparente */
+  --text-color: #4a5e4d;           /* Vert kaki doux - harmonieux pour le texte */
+  --accent-color: #a3b598;         /* Vert gris doux */
+  --shadow-color: rgba(93, 151, 104, 0.25);
+  --button-hover-color: #5a875f;
+  --font-primary: 'Poppins', sans-serif;
+  --font-accent: 'Playfair Display', serif;
+}
+
+/* Titre */
+.login-title {
+  font-family: var(--font-accent);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color); /* Remplace ici par vert kaki doux au lieu de bleu */
+  text-align: center;
+  margin-bottom: 2.5rem;
+  letter-spacing: 1.2px;
+  text-shadow: 0 1px 2px rgba(74, 94, 77, 0.4); /* ombre douce dans la même teinte */
+}
+
+/* Background animé subtil */
+.login-background {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #e6f1dc 0%, #f9f6ee 100%);
+  overflow: hidden;
+  font-family: var(--font-primary);
+}
+
+.login-background::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 25% 25%, rgba(125,184,127,0.15), transparent 60%),
+              radial-gradient(circle at 75% 75%, rgba(93,151,104,0.1), transparent 70%);
+  animation: bgMove 20s linear infinite;
+  top: -50%;
+  left: -50%;
+  z-index: 0;
+}
+
+@keyframes bgMove {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(20%, 20%) rotate(360deg);
+  }
+}
+
+/* Carte formulaire */
+.login-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  background-color: var(--card-color);
+  padding: 3rem 2.5rem 2.5rem;
+  border-radius: 24px;
+  box-shadow: 0 16px 32px var(--shadow-color);
+  animation: fadeInUp 0.8s ease-in-out;
+  border: 1px solid rgba(125, 184, 127, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+.login-container:hover {
+  box-shadow: 0 20px 40px rgba(93, 151, 104, 0.4);
+}
+
+/* Animation entrée */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+/* Champs input */
+mat-form-field {
+  width: 100%;
+  background-color: #fdfaf4;
+  border-radius: 12px;
+  padding: 0.4rem 0.7rem;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+mat-form-field:hover {
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(125, 184, 127, 0.3);
+}
+
+/* Bouton */
+.login-button {
+  margin-top: 1.8rem;
+  background: linear-gradient(90deg, #7db87f, #5a875f);
+  color: #fff;
+  border: none;
+  width: 100%;
+  padding: 0.9rem 0;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(93, 151, 104, 0.4);
+  transition: background 0.4s ease, transform 0.3s ease;
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+}
+
+.login-button:hover {
+  background: linear-gradient(90deg, #679f6f, #46623f);
+  transform: scale(1.05);
+  box-shadow: 0 8px 28px rgba(70, 98, 63, 0.6);
+}
+
+/* Lien mot de passe oublié */
+.login-help {
+  text-align: right;
+  margin-top: 1.4rem;
+  font-size: 0.9rem;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.login-help a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-help a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 2rem 1.5rem;
+    max-width: 100%;
+  }
+  .login-title {
+    font-size: 2rem;
+  }
+  .login-button {
+    font-size: 1rem;
+  }
+}
+:root {
+  --primary-color: #7db87f;        /* Vert doux naturel */
+  --background-color: #f9f6ee;     /* Beige clair chaud */
+  --card-color: #ffffffcc;         /* Carte blanche semi-transparente */
+  --text-color: #4a5e4d;           /* Vert kaki doux */
+  --accent-color: #a3b598;         /* Vert gris doux */
+  --shadow-color: rgba(93, 151, 104, 0.25);
+  --button-bg: #527753;            /* Vert sobre foncé pour le bouton */
+  --button-hover-bg: #40593c;      /* Vert encore plus foncé pour hover */
+  --font-primary: 'Poppins', sans-serif;
+  --font-accent: 'Playfair Display', serif;
+}
+
+/* Titre */
+.login-title {
+  font-family: var(--font-accent);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  text-align: center;
+  margin-bottom: 2.5rem;
+  letter-spacing: 1.2px;
+  text-shadow: 0 1px 2px rgba(74, 94, 77, 0.4);
+}
+
+/* Carte du formulaire */
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  background-color: var(--card-color);
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 28px var(--shadow-color);
+  animation: fadeInUp 0.7s ease-in-out;
+}
+
+/* Animation d’entrée */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Champs */
+.full-width {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+/* Bouton personnalisé */
+.login-button {
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  box-shadow: 0 5px 15px rgba(82, 119, 83, 0.4);
+  font-family: var(--font-primary);
+}
+
+.login-button:hover {
+  background-color: var(--button-hover-bg);
+  box-shadow: 0 8px 25px rgba(64, 89, 60, 0.6);
+  transform: scale(1.05);
+}
+
+/* Lien aide */
+.login-help {
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-top: 1rem;
+}
+
+.login-help a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-help a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}

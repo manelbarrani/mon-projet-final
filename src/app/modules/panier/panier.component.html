@@ -1,0 +1,62 @@
+<div class="user-table-container">
+  <h2 class="table-title">Liste des utilisateurs</h2>
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Photo</th>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>Rôle</th>
+        <th>Produits achetés</th>
+        <th>details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td><img [src]="user.photoUrl" alt="Profil" class="user-avatar" /></td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let p of user.productsPurchased">{{ p }}</li>
+          </ul>
+        </td>
+        <td>
+          <button class="view-btn" (click)="voirDetails(user)">Voir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- POPUP -->
+<div class="popup-overlay" *ngIf="userSelectionne" (click)="fermerPopup()">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+    <!-- Ajout photo profil -->
+    <img [src]="userSelectionne.photoUrl" alt="Profil" class="popup-profile-pic" />
+
+    <div class="popup-info">
+      <h3>Détails de {{ userSelectionne.name }}</h3>
+      <p><strong>Email :</strong> {{ userSelectionne.email }}</p>
+      <p><strong>Téléphone :</strong> {{ userSelectionne.phone }}</p>
+      <p><strong>Rôle :</strong> {{ userSelectionne.role }}</p>
+      <p><strong>Produits achetés :</strong></p>
+      <ul>
+        <li *ngFor="let p of userSelectionne.productsPurchased">{{ p }}</li>
+      </ul>
+
+      <div class="popup-buttons">
+        <!-- Bouton supprimer avec icône poubelle -->
+        <button class="delete-icon-btn" (click)="supprimerUser(userSelectionne)" aria-label="Supprimer utilisateur">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" width="24" viewBox="0 0 24 24">
+            <path d="M3 6h18v2H3V6zm2 3h14v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9zm5 3v6h2v-6H10z"/>
+          </svg>
+        </button>
+        <button class="close-btn" (click)="fermerPopup()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
