@@ -1,7 +1,25 @@
+# Ne pas inclure les dépendances node pour alléger le contexte Docker
 node_modules
+npm-debug.log
+yarn-error.log
+
+# Dossier de build local (tu le reconstruis dans l'image Docker)
 dist
+out-tsc
+
+# Fichiers git
 .git
 .gitignore
+
+# IDE et système
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Dockerfile (optionnel si tu ne veux pas l'inclure dans le contexte)
 Dockerfile
-README.md
+
+# Logs et fichiers temporaires
 *.log
+*.tmp
