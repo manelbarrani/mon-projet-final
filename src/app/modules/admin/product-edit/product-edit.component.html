@@ -52,13 +52,17 @@
 </mat-form-field>
 
 
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Image (URL)</mat-label>
-      <input matInput formControlName="imageUrl" required placeholder="https://..." />
-      <mat-error *ngIf="produitForm.get('imageUrl')?.invalid && produitForm.get('imageUrl')?.touched">
-        L'URL de l'image est requise.
-      </mat-error>
-    </mat-form-field>
+    <!-- Image -->
+    <div class="form-group">
+      <label for="image">Image principale</label>
+      <input id="image" type="file" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
+
+    <!-- Preview -->
+    <div *ngIf="imagePreview" class="image-preview">
+      <img [src]="imagePreview" alt="Aperçu de l'image" />
+    </div>
+     
 
     <mat-form-field appearance="outline" class="form-field full-width">
       <mat-label>Description</mat-label>

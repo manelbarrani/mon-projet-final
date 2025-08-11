@@ -13,6 +13,8 @@ export class ProductEditComponent implements OnInit {
 
   produitForm: FormGroup;
   selectedProduit!: Product;
+  imagePreview: string | null = null;
+  selectedFile: File | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,25 +22,21 @@ export class ProductEditComponent implements OnInit {
     private productService: ProductService,
     private fb: FormBuilder
   ) {
-  
     this.produitForm = this.fb.group({
       name: ['', Validators.required],
       category: ['', Validators.required],
       description: ['', Validators.required],
       price: [0, [Validators.required, Validators.min(0)]],
       stockQuantity: [0, [Validators.required, Validators.min(0)]], 
-      isNew: ['', Validators.required],
+      isNew: [false],
       imageUrl: ['', Validators.required],
       rating: [0, [Validators.required, Validators.min(0), Validators.max(5)]],
       productId: [''],
-     
     });
   }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-
-  
     if (!id) {
       alert('❌ Aucun ID de produit fourni !');
       this.router.navigate(['/produits']);
@@ -57,7 +55,12 @@ export class ProductEditComponent implements OnInit {
           price: retrievedProduit.price,
           rating: retrievedProduit.rating,
           stockQuantity: retrievedProduit.stockQuantity, 
+          isNew: retrievedProduit.isNew ?? false,
+          imageUrl: retrievedProduit.imageUrl ?? '',
+          productId: id
         });
+
+        this.imagePreview = retrievedProduit.imageUrl ?? null;
       },
       error: (error) => {
         console.error("Erreur chargement produit :", error);
@@ -67,18 +70,33 @@ export class ProductEditComponent implements OnInit {
     });
   }
 
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+        this.produitForm.patchValue({ imageUrl: this.imagePreview });
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
   onSubmit(): void {
     if (this.produitForm.invalid) {
       alert('Formulaire invalide !');
       return;
     }
- const id = this.route.snapshot.paramMap.get('id');
- this.produitForm.get('productId')?.setValue(id)
+
+    // Make sure productId is set
+    const id = this.route.snapshot.paramMap.get('id');
+    this.produitForm.get('productId')?.setValue(id);
+
     const updatedProduct: Product = {
       ...this.selectedProduit,
       ...this.produitForm.value
     };
-
 
     this.productService.updateProduct(updatedProduct).subscribe({
       next: () => {

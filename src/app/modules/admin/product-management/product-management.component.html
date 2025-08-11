@@ -1,63 +1,80 @@
 <div class="add-product-container">
   <h2 class="form-title">Ajouter un nouveau produit</h2>
 
-  <form (ngSubmit)="onSubmit()" #productForm="ngForm" class="form-grid">
+  <form [formGroup]="produitForm" (ngSubmit)="onSubmit()" class="form-grid">
 
+    <!-- Nom -->
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Nom du produit</mat-label>
-      <input matInput name="name" required [(ngModel)]="product.name" placeholder="Ex: Crème Hydratante Bio" />
+      <input matInput formControlName="name" placeholder="Ex: Crème Hydratante Bio" />
+      <mat-error *ngIf="produitForm.get('name')?.invalid && produitForm.get('name')?.touched">
+        Nom requis
+      </mat-error>
     </mat-form-field>
 
+    <!-- Catégorie -->
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Catégorie</mat-label>
-      <input matInput name="category" required [(ngModel)]="product.category" placeholder="Ex: Soins visage" />
+      <input matInput formControlName="category" placeholder="Ex: Soins visage" />
+      <mat-error *ngIf="produitForm.get('category')?.invalid && produitForm.get('category')?.touched">
+        Catégorie requise
+      </mat-error>
     </mat-form-field>
 
+    <!-- Prix -->
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Prix (€)</mat-label>
-      <input matInput type="number" name="price" required [(ngModel)]="product.price" placeholder="Ex: 19.99" />
+      <input matInput type="number" formControlName="price" placeholder="Ex: 19.99" />
+      <mat-error *ngIf="produitForm.get('price')?.invalid && produitForm.get('price')?.touched">
+        Prix valide requis
+      </mat-error>
     </mat-form-field>
 
+    <!-- Quantité -->
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Quantité en stock</mat-label>
-      <input matInput type="number" name="stockQuantity" required [(ngModel)]="product.stockQuantity" />
+      <input matInput type="number" formControlName="stockQuantity" />
+      <mat-error *ngIf="produitForm.get('stockQuantity')?.invalid && produitForm.get('stockQuantity')?.touched">
+        Quantité valide requise
+      </mat-error>
     </mat-form-field>
 
-    <!-- ⭐️ Nouveau champ "Note" -->
+    <!-- Note -->
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Note (sur 5)</mat-label>
-      <input
-        matInput
-        type="number"
-        name="rating"
-        [(ngModel)]="product.rating"
-        min="0"
-        max="5"
-        step="0.1"
-        required
-        placeholder="Ex: 4.5"
-      />
+      <input matInput type="number" formControlName="rating" min="0" max="5" step="0.1" placeholder="Ex: 4.5" />
+      <mat-error *ngIf="produitForm.get('rating')?.invalid && produitForm.get('rating')?.touched">
+        La note doit être entre 0 et 5
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Image (URL)</mat-label>
-      <input matInput name="imageUrl" required [(ngModel)]="product.imageUrl" placeholder="https://..." />
-    </mat-form-field>
+    <!-- Image -->
+    <div class="form-group">
+      <label for="image">Image principale</label>
+      <input id="image" type="file" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
 
+    <!-- Preview -->
+    <div *ngIf="imagePreview" class="image-preview">
+      <img [src]="imagePreview" alt="Aperçu de l'image" />
+    </div>
+
+    <!-- Description -->
     <mat-form-field appearance="outline" class="form-field full-width">
       <mat-label>Description du produit</mat-label>
-      <textarea matInput name="description" required [(ngModel)]="product.description"
-        placeholder="Décrivez brièvement le produit..."></textarea>
+      <textarea matInput formControlName="description" placeholder="Décrivez brièvement le produit..."></textarea>
+      <mat-error *ngIf="produitForm.get('description')?.invalid && produitForm.get('description')?.touched">
+        Description requise
+      </mat-error>
     </mat-form-field>
 
-    <mat-checkbox
-      name="isNew"
-      [(ngModel)]="product.isNew"
-      class="checkbox-container">
+    <!-- Nouveau produit -->
+    <mat-checkbox formControlName="isNew" class="checkbox-container">
       ✨ Nouveau produit
     </mat-checkbox>
 
-    <button mat-raised-button color="primary" type="submit"  class="submit-button">
+    <!-- Bouton -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="isSubmitting || produitForm.invalid" class="submit-button">
       ➕ Ajouter le produit
     </button>
     
