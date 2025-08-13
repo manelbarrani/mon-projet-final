@@ -1,27 +1,63 @@
-# GestionProduit
+version: '3.8'
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.9.
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: Product_BD      # Nom correct de la BDD
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5433:5432"                # accès depuis l'hôte sur port 5433
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d  
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d Product_BD"] # Nom correct de la BDD ici aussi
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
 
-## Development server
+  api:
+    build:
+      context: ./backend            
+      dockerfile: Dockerfile
+    container_name: dotnet_api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      PG_HOST: postgres
+      PG_DATABASE: Product_BD
+      PG_USERNAME: postgres
+      PG_PASSWORD: 123456
+      PG_PORT: "5432"
+    ports:
+      - "5000:8080" 
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - app-network
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+  frontend:
+    build:
+      context: ./frontend  
+      dockerfile: Dockerfile
+    container_name: angular_frontend
+    ports:
+      - "4200:80" 
+    depends_on:
+      - api
+    networks:
+      - app-network
 
-## Code scaffolding
+volumes:
+  postgres_data:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+networks:
+  app-network:
+    driver: bridge
